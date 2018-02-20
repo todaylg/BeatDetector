@@ -6,7 +6,7 @@
 
  <audio id="audioEle" src="./test.mp3"></audio>
  <script src="../BeatDetector.js"></script>
-<script>
+ <script>
     let audioEle = document.getElementById("audioEle");
     
     BeatDetector(audioEle, analysisFin, onBeat, onBigBeat);
@@ -22,6 +22,6 @@
     function onBigBeat(){
         console.log("Wow!! Emit BigBeat");
     }
-</script>
+ </script>
 
 ```
