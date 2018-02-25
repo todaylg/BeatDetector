@@ -1,6 +1,8 @@
 # BeatDetector.js
-<h2>Usage</h2>
 
+[![npm](https://img.shields.io/npm/v/beatdetector.svg?style=flat-square)](https://www.npmjs.com/package/beatdetector)[![npm](https://img.shields.io/npm/l/beatdetector.svg?style=flat-square)](https://github.com/todaylg/BeatDetector/blob/master/LICENSE)
+
+<h2>Usage</h2>
 
 ```html
 
