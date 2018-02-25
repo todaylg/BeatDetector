@@ -32,6 +32,9 @@ function init(audio, analysisFin, onBeat, onBigBeat) {
 	offLineObj.prevTime = 0;
 	offLineObj.MAX_COLLECT_SIZE = 43 * (analyser.fftSize / 2);//44032 1s(44100/1024=43次fft,也就是43个levels更新)
 
+	//防止重复触发
+	let oldNow = 0;
+	
 	let bpmTable = [];//Todo ？？？
 	let levels = new Uint8Array(analyser.frequencyBinCount);
 	
@@ -86,6 +89,8 @@ function init(audio, analysisFin, onBeat, onBigBeat) {
 	function tick() {
 		let now = Math.round(audio.currentTime / audio.duration * 10000);
 		if (bigBeatArr.includes(now)) {
+			if(oldNow === now) return;//防止触发两次
+			oldNow = now;
 			onBigBeat();
 		};
 
