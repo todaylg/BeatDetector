@@ -1,8 +1,9 @@
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-window.OfflineAudioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext
-
+if (typeof window != 'undefined') {
+	window.AudioContext = window.AudioContext || window.webkitAudioContext;
+	window.OfflineAudioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext
+}
 function BeatDetector(audio, analysisFin, onBeat, onBigBeat) {
-	if (!audio) return;
+	if (!audio) return '缺少参数';
 	audio.oncanplaythrough = () => {
 		init(audio, analysisFin, onBeat, onBigBeat);
 	}
@@ -34,10 +35,10 @@ function init(audio, analysisFin, onBeat, onBigBeat) {
 
 	//防止重复触发
 	let oldNow = 0;
-	
+
 	let bpmTable = [];//Todo ？？？
 	let levels = new Uint8Array(analyser.frequencyBinCount);
-	
+
 	let historyBuffer = [];
 	//create empty historyBuffer
 	for (let i = 0; historyBuffer.length < offLineObj.MAX_COLLECT_SIZE; i++) {
@@ -89,12 +90,12 @@ function init(audio, analysisFin, onBeat, onBigBeat) {
 	function tick() {
 		let now = Math.round(audio.currentTime / audio.duration * 10000);
 		if (bigBeatArr.includes(now)) {
-			if(oldNow === now) return;//防止触发两次
+			if (oldNow === now) return;//防止触发两次
 			oldNow = now;
 			onBigBeat();
 		};
 
-		if(isOnBeat(audioCtx, analyser, levels, historyBuffer, bpmTable, offLineObj)){
+		if (isOnBeat(audioCtx, analyser, levels, historyBuffer, bpmTable, offLineObj)) {
 			onBeat();
 		}
 		requestAnimationFrame(tick);
@@ -167,7 +168,7 @@ function GetPeaks(data) {
 
 //Learn from https://github.com/stasilo/BeatDetector/blob/master/beatdetector.js
 function isOnBeat(context, analyser, levels, historyBuffer, bpmTable, offLineObj) {
-	
+
 	let MAX_COLLECT_SIZE = offLineObj.MAX_COLLECT_SIZE;
 
 	analyser.getByteFrequencyData(levels);
@@ -286,4 +287,5 @@ function isOnBeat(context, analyser, levels, historyBuffer, bpmTable, offLineObj
 
 	return isBeat;
 }
-//export default BeatDetector;
+
+export default BeatDetector;
