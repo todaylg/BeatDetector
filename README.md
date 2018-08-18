@@ -10,13 +10,13 @@
  <script src="../BeatDetector.js"></script>
  <script>
     let audioEle = document.getElementById("audioEle");
-    
-    BeatDetector(audioEle, analysisFin, onBeat, onBigBeat);
-    
+
+    new BeatDetector(audioEle, analysisFin, onBeat, onBigBeat);
+
     function analysisFin(){
         audioEle.play();
     }
-    
+
     function onBeat(){
         console.log("Emit Beat");
     }
@@ -25,5 +25,6 @@
         console.log("Wow!! Emit BigBeat");
     }
  </script>
-
 ```
+
+you can see this method's use on [WebVR-Audio-Visualizer](http://todaylg.com/WebVR-Audio-Visualizer/)'s PreAnalysis and RealTimeDetect
